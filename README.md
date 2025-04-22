@@ -18,3 +18,14 @@
 
     DevOps MiniProject
     Shlok Banubakode - Bhagyoday Bade - Atharva Mahale
+
+    ## Running the App with Docker
+
+To run the `exif-flask-app` using Docker, follow these steps:
+
+1. Build the Docker image:
+
+   ```bash
+   docker build -t exif-flask-app .
+2. run container:
+   docker run -p 5001:5001 exif-flask-app
