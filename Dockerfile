@@ -1,4 +1,4 @@
-FROM python:3.13-slim
+FROM python:3.11-slim
 
 # Set working directory
 WORKDIR /app
@@ -12,8 +12,18 @@ RUN apt-get update && apt-get install -y \
 # Copy requirements file
 COPY requirements.txt .
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies with troubleshooting steps
+RUN pip install --upgrade pip && \
+    # Install packages one by one to identify problematic packages
+    pip install Flask==3.0.2 && \
+    pip install Werkzeug==3.0.1 && \
+    pip install Pillow==10.4.0 && \
+    pip install gunicorn==21.2.0 && \
+    pip install pytest==7.3.1 && \
+    pip install pytest-cov==4.1.0 && \
+    # Install ffmpeg-python with specific pip options
+    pip install --no-deps ffmpeg-python==0.2.0 && \
+    pip install --no-build-isolation ffmpeg-python==0.2.0
 
 # Copy application code
 COPY . .
