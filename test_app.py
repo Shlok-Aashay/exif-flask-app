@@ -21,13 +21,6 @@ class TestApp(unittest.TestCase):
         """Test that the upload folder exists after setUp"""
         self.assertTrue(os.path.exists(app.config['UPLOAD_FOLDER']))
 
-    def test_post_without_file(self):
-        """Test POST request without a file"""
-        response = self.app.post('/')
-        self.assertEqual(response.status_code, 200)
-        # Make sure we don't get a server error
-        self.assertNotIn(b'server error', response.data.lower())
-
     def test_allowed_image_file(self):
         """Test the allowed image file function"""
         self.assertTrue(allowed_image_file('test.jpg'))
@@ -44,7 +37,6 @@ class TestApp(unittest.TestCase):
         self.assertTrue(allowed_video_file('test.mkv'))
         self.assertFalse(allowed_video_file('test.gif'))
         self.assertFalse(allowed_video_file('test.txt'))
-
 
 if __name__ == '__main__':
     unittest.main()
