@@ -17,6 +17,17 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'MetaData Extractor', response.data)
     
+    def test_upload_folder_exists(self):
+        """Test that the upload folder exists after setUp"""
+        self.assertTrue(os.path.exists(app.config['UPLOAD_FOLDER']))
+
+    def test_post_without_file(self):
+        """Test POST request without a file"""
+        response = self.app.post('/')
+        self.assertEqual(response.status_code, 200)
+        # Make sure we don't get a server error
+        self.assertNotIn(b'server error', response.data.lower())
+
     def test_allowed_image_file(self):
         """Test the allowed image file function"""
         self.assertTrue(allowed_image_file('test.jpg'))
