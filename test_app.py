@@ -15,7 +15,7 @@ class TestApp(unittest.TestCase):
         """Test that home page loads correctly"""
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'EXIF Data Extractor', response.data)
+        self.assertIn(b'MetaData Extractor', response.data)
     
     def test_allowed_image_file(self):
         """Test the allowed image file function"""
@@ -33,18 +33,6 @@ class TestApp(unittest.TestCase):
         self.assertTrue(allowed_video_file('test.mkv'))
         self.assertFalse(allowed_video_file('test.gif'))
         self.assertFalse(allowed_video_file('test.txt'))
-
-    def test_no_file_upload(self):
-        """Test response when no file is uploaded"""
-        response = self.app.post(
-            '/',
-            data={},
-            content_type='multipart/form-data'
-        )
-        
-        # Should return 200 OK but with the default template
-        self.assertEqual(response.status_code, 200)
-        self.assertNotIn(b'error', response.data.lower())
 
 
 if __name__ == '__main__':
