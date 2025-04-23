@@ -34,5 +34,18 @@ class TestApp(unittest.TestCase):
         self.assertFalse(allowed_video_file('test.gif'))
         self.assertFalse(allowed_video_file('test.txt'))
 
+    def test_no_file_upload(self):
+        """Test response when no file is uploaded"""
+        response = self.app.post(
+            '/',
+            data={},
+            content_type='multipart/form-data'
+        )
+        
+        # Should return 200 OK but with the default template
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn(b'error', response.data.lower())
+
+
 if __name__ == '__main__':
     unittest.main()
