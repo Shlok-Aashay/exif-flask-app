@@ -106,9 +106,20 @@ pipeline {
             }
         }
         
+        // stage('Test') {
+        //     steps {
+        //         sh 'python -m pytest test_app.py -v || echo "Tests failed but continuing with build"'
+        //     }
+        //     post {
+        //         always {
+        //             junit allowEmptyResults: true, testResults: 'test-reports/*.xml'
+        //         }
+        //     }
+        // }
         stage('Test') {
             steps {
-                sh 'python -m pytest test_app.py -v || echo "Tests failed but continuing with build"'
+                sh 'mkdir -p test-reports'
+                sh 'python -m pytest test_app.py -v --junitxml=test-reports/test-results.xml'
             }
             post {
                 always {
