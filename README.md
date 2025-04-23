@@ -1,5 +1,5 @@
 # Flask EXIF & Video Metadata Extractor 📷🎬
-TEST
+
     This Flask web application allows users to upload image or video files and extracts useful metadata.
 
     ## 🧠 Features
